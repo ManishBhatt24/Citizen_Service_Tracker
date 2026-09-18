@@ -1,0 +1,429 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  
+  /* Neumorphic Canvas & Surfaces */
+  --bg-canvas: #eaf0f6;
+  --neu-surface: #eaf0f6;
+  --neu-surface-hover: #eff5fa;
+  
+  /* Dual Neumorphic Shadows */
+  --shadow-dark: #b6c4d1;
+  --shadow-light: #ffffff;
+  --neu-extruded: 8px 8px 18px var(--shadow-dark), -8px -8px 18px var(--shadow-light);
+  --neu-extruded-sm: 5px 5px 12px rgba(182, 196, 209, 0.75), -5px -5px 12px var(--shadow-light);
+  --neu-extruded-hover: 12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light);
+  --neu-inset: inset 3px 3px 7px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light);
+  --neu-inset-deep: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light);
+  
+  /* Glassmorphism Overlays */
+  --glass-bg: rgba(234, 240, 246, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-shadow: 0 8px 32px rgba(182, 196, 209, 0.35);
+
+  /* Civic Blue-Green Palette */
+  --civic-teal: #0d9488;
+  --civic-teal-hover: #0f766e;
+  --civic-blue: #0284c7;
+  --civic-blue-hover: #0369a1;
+  --civic-deep: #0f172a;
+  --civic-slate: #334155;
+  --civic-muted: #64748b;
+  --civic-light: #f1f5f9;
+  
+  /* Gradient Accents */
+  --civic-gradient: linear-gradient(135deg, #0d9488 0%, #0284c7 100%);
+  --civic-gradient-hover: linear-gradient(135deg, #0f766e 0%, #0369a1 100%);
+  --civic-gradient-soft: linear-gradient(135deg, rgba(13, 148, 136, 0.08) 0%, rgba(2, 132, 199, 0.08) 100%);
+  
+  /* Status Colors */
+  --status-pending-bg: #fffbebf0;
+  --status-pending-text: #b45309;
+  --status-pending-border: rgba(245, 158, 11, 0.3);
+
+  --status-progress-bg: #f0f9fff0;
+  --status-progress-text: #0369a1;
+  --status-progress-border: rgba(2, 132, 199, 0.3);
+
+  --status-resolved-bg: #ecfdf5f0;
+  --status-resolved-text: #047857;
+  --status-resolved-border: rgba(16, 185, 129, 0.3);
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-canvas);
+  background-image: 
+    radial-gradient(circle at 10% 10%, rgba(13, 148, 136, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(2, 132, 199, 0.05) 0%, transparent 40%);
+  background-attachment: fixed;
+  color: var(--civic-slate);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Glassmorphism Neumorphic Navbar */
+.app-nav {
+  background: rgba(234, 240, 246, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 4px 20px rgba(182, 196, 209, 0.35);
+  padding: 0.9rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-brand {
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.5px;
+  color: var(--civic-deep) !important;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-icon {
+  width: 38px;
+  height: 38px;
+  background: var(--civic-gradient);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.2rem;
+  box-shadow: 4px 4px 10px var(--shadow-dark), -3px -3px 8px var(--shadow-light);
+}
+
+.navbar-brand span {
+  background: var(--civic-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-link {
+  color: var(--civic-slate) !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.55rem 1.1rem !important;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+  margin: 0 2px;
+}
+
+.nav-link:hover {
+  color: var(--civic-teal) !important;
+  background: var(--neu-surface);
+  box-shadow: var(--neu-extruded-sm);
+}
+
+.nav-link.active {
+  color: var(--civic-teal) !important;
+  background: var(--neu-surface);
+  box-shadow: var(--neu-inset);
+}
+
+/* Civic Neumorphic Buttons */
+.btn-civic {
+  background: var(--civic-gradient);
+  color: #ffffff !important;
+  font-weight: 600;
+  border: none;
+  border-radius: 14px;
+  padding: 0.65rem 1.4rem;
+  box-shadow: 5px 5px 14px rgba(182, 196, 209, 0.8), -4px -4px 12px var(--shadow-light);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-civic:hover {
+  background: var(--civic-gradient-hover);
+  transform: translateY(-2px);
+  box-shadow: 8px 8px 18px rgba(182, 196, 209, 0.9), -6px -6px 14px var(--shadow-light), 0 0 15px rgba(13, 148, 136, 0.3);
+  color: #ffffff !important;
+}
+
+.btn-civic:active {
+  transform: translateY(0);
+  box-shadow: var(--neu-inset);
+}
+
+.btn-neu-outline {
+  background: var(--neu-surface);
+  color: var(--civic-deep) !important;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 14px;
+  padding: 0.65rem 1.4rem;
+  box-shadow: var(--neu-extruded-sm);
+  transition: all 0.25s ease;
+}
+
+.btn-neu-outline:hover {
+  background: #f0f6fc;
+  color: var(--civic-teal) !important;
+  box-shadow: var(--neu-extruded);
+  transform: translateY(-2px);
+}
+
+/* Hero Section */
+.hero-card {
+  background: var(--neu-surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 28px;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--neu-extruded);
+}
+
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.12) 0%, rgba(2, 132, 199, 0.05) 50%, transparent 70%);
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.hero-badge {
+  background: rgba(13, 148, 136, 0.1);
+  border: 1px solid rgba(13, 148, 136, 0.25);
+  color: var(--civic-teal);
+  padding: 0.4rem 1rem;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: var(--neu-inset);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Stat Cards */
+.stat-card {
+  background: var(--neu-surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 1.6rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--neu-extruded);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--neu-extruded-hover);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 1.1rem;
+  box-shadow: var(--neu-inset);
+}
+
+.stat-icon.total { background: rgba(2, 132, 199, 0.08); color: var(--civic-blue); }
+.stat-icon.pending { background: rgba(245, 158, 11, 0.08); color: #d97706; }
+.stat-icon.progress { background: rgba(13, 148, 136, 0.08); color: var(--civic-teal); }
+.stat-icon.resolved { background: rgba(16, 185, 129, 0.08); color: #059669; }
+
+.stat-card small {
+  color: var(--civic-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.stat-card h2 {
+  font-size: 2.3rem;
+  font-weight: 800;
+  margin: 0.25rem 0 0 0;
+  color: var(--civic-deep);
+  letter-spacing: -1px;
+}
+
+/* Modern Glass-Neumorphism Hybrid Cards */
+.glass-card {
+  background: var(--neu-surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: var(--neu-extruded);
+  overflow: hidden;
+}
+
+.glass-card .card-body {
+  padding: 1.8rem;
+}
+
+.card-title-lg {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--civic-deep);
+  letter-spacing: -0.3px;
+}
+
+/* Modern Neumorphic Tables */
+.table-custom {
+  color: var(--civic-slate);
+  margin-bottom: 0;
+}
+
+.table-custom th {
+  background: rgba(13, 148, 136, 0.04);
+  color: var(--civic-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid rgba(182, 196, 209, 0.4);
+}
+
+.table-custom td {
+  padding: 1.15rem 1.25rem;
+  border-bottom: 1px solid rgba(182, 196, 209, 0.3);
+  color: var(--civic-slate);
+  font-size: 0.93rem;
+  vertical-align: middle;
+}
+
+.table-custom tbody tr {
+  transition: background 0.2s ease;
+}
+
+.table-custom tbody tr:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.table-custom tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.4rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  box-shadow: 2px 2px 6px rgba(182, 196, 209, 0.4), -2px -2px 6px var(--shadow-light);
+}
+
+.status-badge::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.status-pending {
+  background: var(--status-pending-bg);
+  color: var(--status-pending-text);
+  border: 1px solid var(--status-pending-border);
+}
+.status-pending::before { background: var(--status-pending-text); box-shadow: 0 0 6px var(--status-pending-text); }
+
+.status-in-progress, .status-in_progress {
+  background: var(--status-progress-bg);
+  color: var(--status-progress-text);
+  border: 1px solid var(--status-progress-border);
+}
+.status-in-progress::before, .status-in_progress::before { background: var(--status-progress-text); box-shadow: 0 0 6px var(--status-progress-text); }
+
+.status-resolved {
+  background: var(--status-resolved-bg);
+  color: var(--status-resolved-text);
+  border: 1px solid var(--status-resolved-border);
+}
+.status-resolved::before { background: var(--status-resolved-text); box-shadow: 0 0 6px var(--status-resolved-text); }
+
+/* Form Controls - Soft Neumorphic Inset */
+.form-control-neu, .form-select-neu {
+  background-color: var(--bg-canvas) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  color: var(--civic-deep) !important;
+  border-radius: 14px !important;
+  padding: 0.75rem 1.1rem !important;
+  font-size: 0.95rem;
+  box-shadow: var(--neu-inset) !important;
+  transition: all 0.25s ease;
+}
+
+.form-control-neu:focus, .form-select-neu:focus {
+  border-color: var(--civic-teal) !important;
+  box-shadow: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light), 0 0 0 3px rgba(13, 148, 136, 0.2) !important;
+  outline: none;
+}
+
+.form-control-neu::placeholder {
+  color: var(--civic-muted);
+}
+
+.form-label-neu {
+  color: var(--civic-slate);
+  font-weight: 700;
+  font-size: 0.88rem;
+  margin-bottom: 0.45rem;
+}
+
+/* Category Badge */
+.category-pill {
+  background: rgba(13, 148, 136, 0.08);
+  border: 1px solid rgba(13, 148, 136, 0.2);
+  color: var(--civic-teal);
+  padding: 0.3rem 0.75rem;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  box-shadow: 2px 2px 5px rgba(182, 196, 209, 0.4), -2px -2px 5px var(--shadow-light);
+}
+
+/* Alerts */
+.alert {
+  border-radius: 16px;
+  border: none;
+  padding: 1rem 1.25rem;
+  font-weight: 600;
+  box-shadow: var(--neu-extruded-sm);
+}
+
+.alert-danger, .alert-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.alert-success {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+}
+
+/* Footer */
+footer {
+  margin-top: auto;
+  border-top: 1px solid var(--glass-border);
+  background: var(--neu-surface);
+  box-shadow: inset 0 4px 10px rgba(182, 196, 209, 0.25);
+  padding: 2.2rem 0;
+  color: var(--civic-muted);
+  font-size: 0.9rem;
+}

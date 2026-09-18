@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Register Complaint | Citizen Tracker{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="glass-card">
+      <div class="card-body p-4 p-md-5">
+        <div class="d-flex align-items-center gap-3 mb-4 border-bottom border-secondary border-opacity-10 pb-3">
+          <div class="brand-icon" style="width: 46px; height: 46px; font-size: 1.4rem;">
+            <i class="bi bi-pencil-square"></i>
+          </div>
+          <div>
+            <h2 class="fw-extrabold text-dark mb-0">Register a Complaint</h2>
+            <p class="text-secondary small mb-0">Submit public utility issues directly to the municipal resolution team.</p>
+          </div>
+        </div>
+
+        <form method="POST" id="complaintForm" novalidate>
+          {% csrf_token %}
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label-neu"><i class="bi bi-person me-1 text-teal"></i> Citizen Name *</label>
+              <input name="citizen_name" class="form-control form-control-neu" placeholder="e.g. Rahul Sharma" required maxlength="80">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label-neu"><i class="bi bi-telephone me-1 text-teal"></i> Phone Number *</label>
+              <input name="phone" class="form-control form-control-neu" placeholder="e.g. 9876543210" required inputmode="numeric" maxlength="15">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label-neu"><i class="bi bi-envelope me-1 text-teal"></i> Email Address</label>
+              <input type="email" name="email" class="form-control form-control-neu" placeholder="name@example.com">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label-neu"><i class="bi bi-tags me-1 text-teal"></i> Complaint Category *</label>
+              <select name="category" class="form-select form-select-neu" required>
+                <option value="">Select Category</option>
+                {% for cat in categories %}
+                  <option value="{{ cat }}">{{ cat }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label-neu"><i class="bi bi-geo-alt me-1 text-teal"></i> Location / Address *</label>
+              <input name="location" class="form-control form-control-neu" placeholder="Full street address, ward number, or landmark" required maxlength="200">
+            </div>
+            <div class="col-12">
+              <label class="form-label-neu"><i class="bi bi-chat-left-text me-1 text-teal"></i> Complaint Description *</label>
+              <textarea name="description" class="form-control form-control-neu" rows="4" placeholder="Describe the issue in detail (minimum 10 characters)..." minlength="10" maxlength="1000" required></textarea>
+              <div class="form-text text-muted small mt-1">Minimum 10 characters required.</div>
+            </div>
+            <div class="col-12 d-flex gap-2 pt-3">
+              <button class="btn btn-civic btn-lg px-4"><i class="bi bi-send me-1"></i> Submit Complaint</button>
+              <a href="{% url 'complaints' %}" class="btn btn-neu-outline btn-lg">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}Complaints Management | Citizen Tracker{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+  <div>
+    <h2 class="fw-extrabold text-dark mb-1"><i class="bi bi-list-stars me-2 text-teal"></i>Complaint Management</h2>
+    <p class="text-secondary mb-0">Search, filter by category/status, and update citizen complaint progress.</p>
+  </div>
+  <a href="{% url 'register' %}" class="btn btn-civic">
+    <i class="bi bi-plus-lg me-1"></i> New Complaint
+  </a>
+</div>
+
+<!-- Search & Filter Card -->
+<div class="glass-card mb-4">
+  <div class="card-body">
+    <form class="row g-3 align-items-end" method="GET" action="{% url 'complaints' %}">
+      <div class="col-lg-4">
+        <label class="form-label-neu"><i class="bi bi-search me-1"></i> Search Query</label>
+        <div class="position-relative">
+          <input name="search" value="{{ search }}" class="form-control form-control-neu" placeholder="Search ID, name, phone, location...">
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <label class="form-label-neu"><i class="bi bi-tags me-1"></i> Category</label>
+        <select name="category" class="form-select form-select-neu">
+          <option value="">All Categories</option>
+          {% for cat in categories %}
+            <option value="{{ cat }}" {% if selected_category == cat %}selected{% endif %}>{{ cat }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-lg-3">
+        <label class="form-label-neu"><i class="bi bi-funnel me-1"></i> Status</label>
+        <select name="status" class="form-select form-select-neu">
+          <option value="">All Statuses</option>
+          {% for s in statuses %}
+            <option value="{{ s }}" {% if selected_status == s %}selected{% endif %}>{{ s }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-lg-2 d-flex gap-2">
+        <button class="btn btn-civic flex-grow-1"><i class="bi bi-filter me-1"></i> Filter</button>
+        {% if search or selected_category or selected_status %}
+          <a href="{% url 'complaints' %}" class="btn btn-neu-outline" title="Reset Filters"><i class="bi bi-x-circle fs-5"></i></a>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Complaints Data Table Card -->
+<div class="glass-card">
+  <div class="table-responsive">
+    <table class="table table-custom align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Citizen</th>
+          <th>Category</th>
+          <th>Location</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th style="min-width: 150px;">Update Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for c in complaints %}
+        <tr>
+          <td><span class="font-monospace text-teal fw-bold">#{{ c.id }}</span></td>
+          <td>
+            <div class="fw-semibold text-dark">{{ c.citizen_name }}</div>
+            <div class="small text-muted"><i class="bi bi-telephone me-1"></i>{{ c.phone }}</div>
+            {% if c.email %}
+              <div class="small text-muted"><i class="bi bi-envelope me-1"></i>{{ c.email }}</div>
+            {% endif %}
+          </td>
+          <td><span class="category-pill">{{ c.category }}</span></td>
+          <td><div class="text-secondary small" style="max-width: 160px;"><i class="bi bi-geo-alt text-teal me-1"></i>{{ c.location }}</div></td>
+          <td><div class="description-cell text-slate small" style="max-width: 250px;">{{ c.description }}</div></td>
+          <td><span class="status-badge status-{{ c.status|slugify }}">{{ c.status }}</span></td>
+          <td>
+            <form method="POST" action="{% url 'update_status' complaint_id=c.id %}">
+              {% csrf_token %}
+              <select name="status" class="form-select form-select-neu form-select-sm py-1 px-2" onchange="this.form.submit()">
+                {% for s in statuses %}
+                  <option value="{{ s }}" {% if c.status == s %}selected{% endif %}>{{ s }}</option>
+                {% endfor %}
+              </select>
+            </form>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="7" class="text-center py-5 text-muted">
+            <i class="bi bi-journal-x fs-1 d-block mb-2"></i>
+            No complaints found matching your criteria.
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
